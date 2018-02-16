@@ -1,0 +1,42 @@
+<!-- Ce fichier contient le menu de base de l'application. Il contient également le script pour appeller chaque bout
+de page HTML -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../CSS/Index.css">
+    <title>Simple Email App</title>
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $("#MessagesRecus").click(function(){
+                $("#body").load("EmailListe.html");
+            });
+        });
+        $(document).ready(function (){
+            $("#NouveauMessage").click(function(){
+                $("#body").load("ComposeEmail.html");
+            });
+        });
+        $(document).ready(function (){
+            $("#Adresses").click(function(){
+                $("#body").load("CarnetAdresse.html");
+            });
+        });
+
+    </script>
+</head>
+<body>
+<!-- Menu principal du site web -->
+<div id="menu">
+    <ul>
+        <li><a href="#" id="MessagesRecus">Messages reçus</a></li>
+        <li><a href="#" id="NouveauMessage">Nouveau message</a></li>
+        <li><a href="#" id="Adresses">Carnet d'adresses</a></li>
+    </ul>
+
+</div>
+<!-- tout le contenu dynamique sera chargé entre ses balises -->
+<div id="body"></div>
+</body>
+</html>
