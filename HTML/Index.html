@@ -6,20 +6,27 @@ de page HTML -->
     <meta charset="UTF-8">
     <script src="../jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../CSS/Index.css">
+    <link id="css" rel="stylesheet" type="text/css" href="">
     <title>Simple Email App</title>
     <script type="text/javascript">
         $(document).ready(function (){
             $("#MessagesRecus").click(function(){
+            	var link = document.getElementById("css");
+				link.href = "../CSS/EmailListe.css";
                 $("#body").load("EmailListe.html");
             });
         });
         $(document).ready(function (){
             $("#NouveauMessage").click(function(){
+            var link = document.getElementById("css");
+				link.href = "../CSS/ComposeEmail.css";
                 $("#body").load("ComposeEmail.html");
             });
         });
         $(document).ready(function (){
             $("#Adresses").click(function(){
+            	var link = document.getElementById("css");
+				link.href = "../CSS/CarnetAdresse.css";
                 $("#body").load("CarnetAdresse.html");
             });
         });
