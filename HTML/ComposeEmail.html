@@ -1,0 +1,41 @@
+<!-- Ce fichier contient un formulaire permettant de composer un nouvel e-mail -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="../CSS/ComposeEmail.css">
+    <meta charset="UTF-8">
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <title>Title</title>
+	<script type="text/javascript">
+		function afficher(FormMail) {
+		var dest = document.FormMail.destinataire.value;
+		var objet = document.FormMail.objet.value;
+		var text = document.FormMail.message.value;
+		if(dest ==="vala17@uqo.ca"){ // dans le cas où l'envoi du mail n'est pas correct, on ne l'envoie pas
+		alert("Mauvais destinataire");
+		return false;
+		}else{ //l'envoi du mail est validé
+		alert("Vous avez tapé : " + dest + ", "+ objet + " et "+ text);
+		return true;
+		}
+		}
+	</script>
+</head>
+<body>
+
+<div id="ComposeEmail">
+    <h1>Composer un nouveau message</h1>
+    <form NAME = "FormMail" onsubmit="return afficher(this);">
+        Destinataire <br>
+        <input type="texte" name="destinataire" placeholder="votremail@uqo.ca" required pattern=[A-Za-z-._0-9]{1,30}@[a-z]{1,10}[.]{1}[a-z]{1,3}><br>
+        Objet <br>
+        <input type="texte" name="objet" placeholder="[Projet] techniques internet" required minlength="1"><br>
+        Message<br>
+        <textarea name="message" placeholder="Votre message" required="required" ></textarea>
+        <br><br>
+        <input id="submit" type="submit" value="envoyer">
+    </form>
+</div>
+</body>
+</html>
