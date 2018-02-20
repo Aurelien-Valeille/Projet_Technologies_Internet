@@ -8,6 +8,39 @@
     overflow: auto;
 
 }
+
+#Email{
+    padding-left: 50%;
+    margin-top: -40%;
+}
+#Email2{
+    padding-left: 50%;
+    margin-top: -40%;
+}
+#Email3{
+    padding-left: 50%;
+    margin-top: -40%;
+}
+#Email4{
+    padding-left: 50%;
+    margin-top: -40%;
+}
+form{
+    font-size: 25px;
+    margin-top: 2%;
+}
+input{
+    width: 30%;
+    border: none;
+    border-bottom: 0.3px solid;
+
+}
+textarea{
+    height: 300px;
+    width: 80%;
+    margin-top: 1%;
+}
+
 ol{
     list-style: none;
 
@@ -22,5 +55,14 @@ a:link{
 }
 
 .detail{
+    color: black !important;
+}
+.detail2{
+    color: black !important;
+}
+.detail3{
+    color: black !important;
+}
+.detail4{
     color: black !important;
 }

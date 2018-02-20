@@ -6,9 +6,24 @@
     <script type="text/javascript">
         $(document).ready(function (){
             $(".detail").click(function(){
-                $("#body").load("Email.html");
+                $("#bodyMail").load("Email.html #Email");
             });
         });
+		 $(document).ready(function (){
+			$(".detail2").click(function(){
+                $("#bodyMail").load("Email.html #Email2");
+            });
+        });
+		 $(document).ready(function (){
+			$(".detail3").click(function(){
+                $("#bodyMail").load("Email.html #Email3");
+            });
+        });	
+		$(document).ready(function (){
+			$(".detail4").click(function(){
+                $("#bodyMail").load("Email.html #Email4");
+            });
+        });	
     </script>
 </head>
 <body>
@@ -17,9 +32,9 @@
 <div id="EmailListe">
     <ol>
         <li> <a href="#" class="detail">Mail 1</a></li>
-        <li><a href="#" class="detail">Mail 2</a></li>
-        <li><a href="#" class="detail">Mail 3</a></li>
-        <li><a href="#" class="detail">Mail 4</a></li>
+        <li><a href="#" class="detail2">Mail 2</a></li>
+        <li><a href="#" class="detail3">Mail 3</a></li>
+        <li><a href="#" class="detail4">Mail 4</a></li>
         <li><a href="#" class="detail">Mail 1</a></li>
         <li>Mail 2</li>
         <li>Mail 3</li>
@@ -32,22 +47,9 @@
         <li>Mail 2</li>
         <li>Mail 3</li>
         <li>Mail 4</li>
-        <li>Mail 1</li>
-        <li>Mail 2</li>
-        <li>Mail 3</li>
-        <li>Mail 4</li>
-        <li>Mail 1</li>
-        <li>Mail 2</li>
-        <li>Mail 3</li>
-        <li>Mail 4</li>
-        <li>Mail 1</li>
-        <li>Mail 2</li>
-        <li>Mail 3</li>
-        <li>Mail 4</li>
-
     </ol>
 </div>
-<div id="body">
+<div id="bodyMail">
 
 </div>
 </body>

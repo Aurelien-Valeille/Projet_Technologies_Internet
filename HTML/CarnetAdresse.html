@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<script type="text/javascript">
+		function valider(FormAjout) {
+			var pre = document.FormAjout.prenom.value;
+			var nom = document.FormAjout.nom.value;
+			var mail = document.FormAjout.email.value;
+			//alert("Vous avez tapé : " + pre + ", "+ nom + " et "+ mail);
+			document.FormAjout.Data.value +=  pre + " "+ nom + "  "+ mail + " \n";
+		}
+	</script>
+
+
 </head>
 <body>
 
 <div id="CarnetAdresse">
-    <p>Ici va s'afficher le carnet d'adresses</p>
+    <p>Rechercher un contact</p>
+	<form Name="FormRecherche">
+		 <input name="recherche" placeholder="Votre recherche"></input>
+	</form>
+	<p>Ajout d'un contact</p>
+	<form Name="FormAjout" method=post ation="/">
+		 <input name="prenom" placeholder="Prénom"></input>
+		 <input name="nom" placeholder="Nom"></input>
+		 <input name="email" placeholder="Email"></input>
+		 <input type="button" value="Valider" onClick="return valider(this);"/> 
+		 <textarea name="Data" rows="10" cols="13"> </textarea>
+	</form>
 </div>
+
 
 </body>
 </html>
