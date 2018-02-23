@@ -3,10 +3,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<script type="text/javascript" src="../JSON/emails.json"></script>
     <script type="text/javascript">
         $(document).ready(function (){
             $(".detail").click(function(){
                 $("#bodyMail").load("Email.html #Email");
+                $(document).ready(function() { // Pour attendre que le contenu soit chargé
+                	$.getJSON('../JSON/emails.json', function(fichier) { // ça lit dans le fichier
+    					$("#envoyeur").text(fichier.emails[0].envoyeur); // ça affiche l'envoyeur depuis le fichier JSON dans le HTML
+    					$("#objet").text(fichier.emails[0].objet);		// pareil ici, mais avec l'objet
+    					$("#message").text(fichier.emails[0].message); // puis le message
+    				});
+    			});
             });
         });
 		 $(document).ready(function (){
@@ -23,7 +31,14 @@
 			$(".detail4").click(function(){
                 $("#bodyMail").load("Email.html #Email4");
             });
-        });	
+        });
+        
+        // C'est ici que ça lit dans le fichier JSON et que ça affiche les 3 mails
+        $.getJSON('../JSON/emails.json', function(fichier) {
+    		$("#mail1").text(fichier.emails[0].objet);
+    		$("#mail2").text(fichier.emails[1].objet);
+    		$("#mail3").text(fichier.emails[2].objet);
+    	}); // Faudrait trouver un moyen de lire automatiquement tout le fichier et de tout afficher
     </script>
 </head>
 <body>
@@ -31,9 +46,9 @@
 <!-- Liste des emails reçus -->
 <div id="EmailListe">
     <ol>
-        <li> <a href="#" class="detail">Mail 1</a></li>
-        <li><a href="#" class="detail2">Mail 2</a></li>
-        <li><a href="#" class="detail3">Mail 3</a></li>
+        <li><a id="mail1" href="#" class="detail"></a></li>
+        <li><a id="mail2" href="#" class="detail2"></a></li>
+        <li><a id="mail3" href="#" class="detail3"></a></li>
         <li><a href="#" class="detail4">Mail 4</a></li>
         <li><a href="#" class="detail">Mail 1</a></li>
         <li>Mail 2</li>

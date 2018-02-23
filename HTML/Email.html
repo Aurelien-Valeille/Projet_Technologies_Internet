@@ -1,4 +1,4 @@
-<!-- Ce fichier contient l'informationpour un e-mail. Il y a également la liste des tous les e-mails car il faut la
+<!-- Ce fichier contient l'information pour un e-mail. Il y a également la liste de tous les e-mails car il faut la
 réafficher à chaque fois -->
 <!DOCTYPE html>
 <html lang="en">
@@ -9,11 +9,35 @@ réafficher à chaque fois -->
     <title>Email</title>
 </head>
 <body>
+
+<script type="text/javascript">
+        $(document).ready(function (){
+            $(".detail").click(function(){
+                $("#bodyMail").load("Email.html #Email");
+            });
+        });
+		 $(document).ready(function (){
+			$(".detail2").click(function(){
+                $("#bodyMail").load("Email.html #Email2");
+            });
+        });
+		 $(document).ready(function (){
+			$(".detail3").click(function(){
+                $("#bodyMail").load("Email.html #Email3");
+            });
+        });	
+		$(document).ready(function (){
+			$(".detail4").click(function(){
+                $("#bodyMail").load("Email.html #Email4");
+            });
+        });
+</script>
+
 <div id="Email">
-    <p>De: devteam@gmail.com</p>
-    <p>Objet: what a great e-mail app !</p>
-    <p>Message: C'est vraiment une superbe application, j'espère que la partie serveur sera bientot disponible !<br>
-    </p>
+	<!-- On pourrait vider le contenu des span ici, puisque c'est chargé directement depuis le fichier maintenant ?	 -->
+    <p>De: <span id="envoyeur">devteam@gmail.com</span></p> 
+    <p>Objet: <span id="objet">what a great e-mail app !</span></p>
+    <p>Message: <span id="message">C'est vraiment une superbe application, j'espère que la partie serveur sera bientot disponible !</span></p>
 </div>
 <div id="Email2">
     <p>De: devteam@gmail.com</p>

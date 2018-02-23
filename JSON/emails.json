@@ -1,0 +1,16 @@
+{
+	"emails": [
+	{
+		"envoyeur": "jeanjacques@gmail.com",
+		"objet": "On arrive à lire depuis le fichier JSON",
+		"message": "Blablablablablablablablablabla"},
+	{
+		"envoyeur": "geraldine@outlook.com",
+		"objet": "Wow c'est fou",
+		"message": "lolololololololol"},
+	{
+		"envoyeur": "barackobama@whitehouse.us",
+		"objet": "The best e-mail service",
+		"message": "EVER."}
+	]
+}
