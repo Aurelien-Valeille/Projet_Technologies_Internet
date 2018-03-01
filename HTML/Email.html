@@ -9,30 +9,6 @@ réafficher à chaque fois -->
     <title>Email</title>
 </head>
 <body>
-
-<script type="text/javascript">
-        $(document).ready(function (){
-            $(".detail").click(function(){
-                $("#bodyMail").load("Email.html #Email");
-            });
-        });
-		 $(document).ready(function (){
-			$(".detail2").click(function(){
-                $("#bodyMail").load("Email.html #Email2");
-            });
-        });
-		 $(document).ready(function (){
-			$(".detail3").click(function(){
-                $("#bodyMail").load("Email.html #Email3");
-            });
-        });	
-		$(document).ready(function (){
-			$(".detail4").click(function(){
-                $("#bodyMail").load("Email.html #Email4");
-            });
-        });
-</script>
-
 <div id="Email">
 	<!-- On pourrait vider le contenu des span ici, puisque c'est chargé directement depuis le fichier maintenant ?	 -->
     <p>De: <span id="envoyeur">devteam@gmail.com</span></p> 
@@ -57,6 +33,28 @@ réafficher à chaque fois -->
     <p>Message: C'est vraiment une superbe application, j'espère que la partie serveur sera bientot disponible !<br>
     </p>
 </div>
-
+    <!-- Script de la page Email --> 
+    <script type="text/javascript">
+            $(document).ready(function (){
+                $(".detail").click(function(){
+                    $("#bodyMail").load("Email.html #Email");
+                });
+            });
+             $(document).ready(function (){
+                $(".detail2").click(function(){
+                    $("#bodyMail").load("Email.html #Email2");
+                });
+            });
+             $(document).ready(function (){
+                $(".detail3").click(function(){
+                    $("#bodyMail").load("Email.html #Email3");
+                });
+            });	
+            $(document).ready(function (){
+                $(".detail4").click(function(){
+                    $("#bodyMail").load("Email.html #Email4");
+                });
+            });
+    </script>
 </body>
 </html>

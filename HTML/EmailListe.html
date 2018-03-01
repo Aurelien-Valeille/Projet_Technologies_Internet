@@ -3,7 +3,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="text/javascript">
+</head>
+<body>
+
+<!-- Liste des emails reçus -->
+<div id="EmailListe">
+    <ol>
+        <li><a id="mail1" href="#" class="detail"></a></li>
+        <li><a id="mail2" href="#" class="detail2"></a></li>
+        <li><a id="mail3" href="#" class="detail3"></a></li>
+        <li><a href="#" class="detail4">Mail 4</a></li>
+        <li><a href="#" class="detail">Mail 1</a></li>
+        <li>Mail 2</li>
+        <li>Mail 3</li>
+        <li>Mail 4</li>
+        <li>Mail 1</li>
+        <li>Mail 2</li>
+        <li>Mail 3</li>
+        <li>Mail 4</li>
+        <li>Mail 1</li>
+        <li>Mail 2</li>
+        <li>Mail 3</li>
+        <li>Mail 4</li>
+    </ol>
+</div>
+<div id="bodyMail">
+
+</div>
+    <!-- Script de la page EmailListe --> 
+     <script type="text/javascript">
         $(document).ready(function (){
             $(".detail").click(function(){
                 $("#bodyMail").load("Email.html #Email");
@@ -39,32 +67,5 @@
     		$("#mail3").text(fichier.emails[2].objet);
     	}); // Faudrait trouver un moyen de lire automatiquement tout le fichier et de tout afficher
     </script>
-</head>
-<body>
-
-<!-- Liste des emails reçus -->
-<div id="EmailListe">
-    <ol>
-        <li><a id="mail1" href="#" class="detail"></a></li>
-        <li><a id="mail2" href="#" class="detail2"></a></li>
-        <li><a id="mail3" href="#" class="detail3"></a></li>
-        <li><a href="#" class="detail4">Mail 4</a></li>
-        <li><a href="#" class="detail">Mail 1</a></li>
-        <li>Mail 2</li>
-        <li>Mail 3</li>
-        <li>Mail 4</li>
-        <li>Mail 1</li>
-        <li>Mail 2</li>
-        <li>Mail 3</li>
-        <li>Mail 4</li>
-        <li>Mail 1</li>
-        <li>Mail 2</li>
-        <li>Mail 3</li>
-        <li>Mail 4</li>
-    </ol>
-</div>
-<div id="bodyMail">
-
-</div>
 </body>
 </html>

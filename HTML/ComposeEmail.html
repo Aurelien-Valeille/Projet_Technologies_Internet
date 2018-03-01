@@ -5,20 +5,6 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="../CSS/EmailListe.css">
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-	<script type="text/javascript">
-		function afficher(FormMail) {
-		var dest = document.FormMail.destinataire.value;
-		var objet = document.FormMail.objet.value;
-		var text = document.FormMail.message.value;
-		if(dest ==="vala17@uqo.ca"){ // dans le cas où l'envoi du mail n'est pas correct, on ne l'envoie pas
-		alert("Mauvais destinataire");
-		return false;
-		}else{ //l'envoi du mail est validé
-		alert("Vous avez tapé : " + dest + ", "+ objet + " et "+ text);
-		return true;
-		}
-		}
-	</script>
 </head>
 <body>
 
@@ -30,10 +16,25 @@
         Objet <br>
         <input type="texte" name="objet" placeholder="[Projet] techniques internet" required minlength="1"><br>
         Message<br>
-        <textarea name="message" placeholder="Votre message" required="required" ></textarea>
+        <textarea name="message" placeholder="Votre message" required="required"></textarea>
         <br><br>
         <input id="submit" type="submit" value="envoyer">
     </form>
 </div>
+    <!-- Script de la page ComposeEmail -->
+    <script type="text/javascript">
+		function afficher(FormMail) {
+		  var dest = document.FormMail.destinataire.value;
+		  var objet = document.FormMail.objet.value;
+		  var text = document.FormMail.message.value;
+		  if(dest ==="vala17@uqo.ca"){ // dans le cas où l'envoi du mail n'est pas correct, on ne l'envoie pas
+		      alert("Mauvais destinataire");
+		      return false;
+		  }else{ //l'envoi du mail est validé
+		      alert("Vous avez tapé : " + dest + ", "+ objet + " et "+ text);
+		      return true;
+		      }
+		  }
+	</script>
 </body>
 </html>

@@ -8,30 +8,7 @@ de page HTML -->
     <link rel="stylesheet" type="text/css" href="../CSS/Index.css">
     <link id="css" rel="stylesheet" type="text/css" href="">
     <title>Simple Email App</title>
-    <script type="text/javascript">
-        $(document).ready(function (){
-            $("#MessagesRecus").click(function(){
-            	var link = document.getElementById("css");
-				link.href = "../CSS/EmailListe.css";
-                $("#body").load("EmailListe.html");
-            });
-        });
-        $(document).ready(function (){
-            $("#NouveauMessage").click(function(){
-            var link = document.getElementById("css");
-				link.href = "../CSS/ComposeEmail.css";
-                $("#body").load("ComposeEmail.html");
-            });
-        });
-        $(document).ready(function (){
-            $("#Adresses").click(function(){
-            	var link = document.getElementById("css");
-				link.href = "../CSS/CarnetAdresse.css";
-                $("#body").load("CarnetAdresse.html");
-            });
-        });
-
-    </script>
+   
 </head>
 <body>
 <!-- Menu principal du site web -->
@@ -45,5 +22,30 @@ de page HTML -->
 </div>
 <!-- tout le contenu dynamique sera chargé entre ses balises -->
 <div id="body"></div>
+ 
+<!-- Script de la page index -->    
+    <script type="text/javascript">
+        $(document).ready(function () {
+        $("#MessagesRecus").click(function () {
+            var link = document.getElementById("css");
+            link.href = "../CSS/EmailListe.css";
+            $("#body").load("EmailListe.html");
+            });
+        });
+        $(document).ready(function () {
+            $("#NouveauMessage").click(function () {
+                var link = document.getElementById("css");
+                link.href = "../CSS/ComposeEmail.css";
+                $("#body").load("ComposeEmail.html");
+            });
+        });
+        $(document).ready(function () {
+            $("#Adresses").click(function () {
+                var link = document.getElementById("css");
+                link.href = "../CSS/CarnetAdresse.css";
+                $("#body").load("CarnetAdresse.html");
+            });
+        });
+    </script>
 </body>
 </html>

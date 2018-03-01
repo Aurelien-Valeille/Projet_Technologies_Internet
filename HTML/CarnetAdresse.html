@@ -1,18 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<script type="text/javascript">
-		function valider(FormAjout) {
-			var pre = document.FormAjout.prenom.value;
-			var nom = document.FormAjout.nom.value;
-			var mail = document.FormAjout.email.value;
-			//alert("Vous avez tapé : " + pre + ", "+ nom + " et "+ mail);
-			document.FormAjout.Data.value +=  pre + " "+ nom + "  "+ mail + " \n";
-		}
-	</script>
-
-
 </head>
 <body>
 
@@ -23,14 +11,44 @@
 	</form>
 	<p>Ajout d'un contact</p>
 	<form Name="FormAjout" method=post ation="/">
-		 <input name="prenom" placeholder="Prénom"></input>
-		 <input name="nom" placeholder="Nom"></input>
+		 <input name="prenom" placeholder="Prénom" ></input>
+		 <input name="nom" placeholder="Nom" ></input>
 		 <input name="email" placeholder="Email"></input>
 		 <input type="button" value="Valider" onClick="return valider(this);"/> 
-		 <textarea name="Data" rows="10" cols="13"> </textarea>
 	</form>
+<table id="tableau" border=1>
+    <p>Mon carnet d'adresse :</p>
+    <tr>
+        <th>Prenom</th>
+        <th>Nom</th>
+        <th>Mail</th>
+    </tr>
+</table>
 </div>
-
-
+<!-- Script de la page CarnetAdresse -->
+    <script type="text/javascript">
+        function valider()
+        {
+            var pre = document.FormAjout.prenom.value;
+			var nom = document.FormAjout.nom.value;
+			var mail = document.FormAjout.email.value;
+            if(pre!="" & nom!="" & mail!="") {
+                var tableau = document.getElementById("tableau");
+                var ligne = tableau.insertRow(-1);//on a ajouté une ligne
+                var colonne1 = ligne.insertCell(0);//on a une ajouté une cellule
+                colonne1.innerHTML += pre;//on y met le contenu de titre 
+                var colonne2 = ligne.insertCell(1);//on ajoute la seconde cellule
+                colonne2.innerHTML += nom;
+                var colonne3 = ligne.insertCell(2);
+                colonne3.innerHTML += mail;//on ajoute le jour du mois  
+                document.FormAjout.prenom.value="";
+                document.FormAjout.nom.value="";
+                document.FormAjout.email.value="";
+            }
+            else{
+             alert("Veuillez remplire les 3 champs");   
+            }
+        }
+	</script>
 </body>
 </html>
