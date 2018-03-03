@@ -6,8 +6,9 @@
 
 <div id="CarnetAdresse">
     <p>Rechercher un contact</p>
-	<form Name="FormRecherche">
-		 <input name="recherche" placeholder="Votre recherche"></input>
+	<form Name="FormRecherche" method=post ation="/">
+		 <input name="recherche" placeholder="Votre recherche" type="text"></input>
+         <input type="button" value="Chercher" onClick="chercher();"/>
 	</form>
 	<p>Ajout d'un contact</p>
 	<form Name="FormAjout" method=post ation="/">
@@ -33,6 +34,7 @@
 </div>
 <!-- Script de la page CarnetAdresse -->
     <script type="text/javascript">
+        //VALIDER
         function valider()
         {
             var pre = document.FormAjout.prenom.value;
@@ -44,8 +46,10 @@
                 var ligne = tableau.insertRow(-1);//on a ajouté une ligne
                 var arrayLignes = document.getElementById("tableau").rows;
                 var colonne1 = ligne.insertCell(0);//on a une ajouté une cellule
-                colonne1.innerHTML = arrayLignes.length-1;
-                var colonne2 = ligne.insertCell(1);//on a une ajouté une cellule
+                var id = document.getElementsByTagName('table')[0].getElementsByTagName('tr')[arrayLignes.length-2].cells[0].innerHTML;
+                if(id=="id"){id=0;}
+                colonne1.innerHTML = +id+1;
+                var colonne2 = ligne.insertCell(1);
                 colonne2.innerHTML += pre;
                 var colonne3 = ligne.insertCell(2);
                 colonne3.innerHTML += nom;
@@ -59,16 +63,56 @@
              alert("Veuillez remplire les 3 champs");   
             }
         }
-        
+        //SUPPRIMER
         function supprimer()
         {
-           var id = document.FormSupp.id.value;  
-            if(id!=""){
+           var idV = document.FormSupp.id.value;  
+            if(idV!=""& idV>0){
                  var tableau = document.getElementById("tableau");
-                 tableau.deleteRow(id);
+                 var arrayLignes = document.getElementById("tableau").rows;
+                 var val = 0;
+                 var supr = -1;
+                 var su =false;
+                 for (var i= 1; i < arrayLignes.length; i++){
+                     val = document.getElementsByTagName('table')[0].getElementsByTagName('tr')[i].cells[0].innerHTML; 
+                     if (idV == val){
+                        supr = i; 
+                        su = true;
+                     }
+                 }
+                if(su) {
+                 tableau.deleteRow(supr);
+                }
                  document.FormSupp.id.value="";
             }
+            else{
+            alert("Saisir un id valide !");
+            }
         }
+        //CHERCHER
+        function chercher()
+        {
+            var chaine = document.FormRecherche.recherche.value;
+            var arrayLignes = document.getElementById("tableau").rows;
+            var val ="";
+            //alert(val = document.getElementsByTagName('table')[0].getElementsByTagName('tr')[2].cells[0].innerHTML;
+            if(chaine!="")
+            {
+                for (var k= 1; k < arrayLignes.length; k++){
+                    for (var j= 0; j < 4; j++){ 
+                        val = document.getElementsByTagName('table')[0].getElementsByTagName('tr')[k].cells[j].innerHTML;
+                        //alert(val);
+                        if(val.includes(chaine)){
+                            document.getElementsByTagName('table')[0].getElementsByTagName('tr')[k].cells[j].style.backgroundColor = "#bdcbf5";
+                        } 
+                    }
+                }
+            document.FormRecherche.recherche.value="";
+            alert("fin");
+            }         
+            
+        }
+        
 	</script>
 </body>
 </html>
