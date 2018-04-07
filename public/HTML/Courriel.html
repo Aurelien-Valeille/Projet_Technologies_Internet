@@ -1,0 +1,53 @@
+<!-- Ce fichier contient le menu de base de l'application. Il contient également le script pour appeller chaque bout
+de page HTML -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="../../jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../CSS/Courriel.css">
+    <link id="css" rel="stylesheet" type="text/css" href="">
+    <title>Simple Email App</title>
+   
+</head>
+<body>
+<!-- Menu principal du site web -->
+<div id="menu">
+    <ul>
+        <li><a href='EmailListe' id="MessagesRecus">Messages reçus</a></li>
+        <li><a href="ComposeEmail" id="NouveauMessage">Nouveau message</a></li>
+        <li><a href="CarnetAdresse" id="Adresses">Carnet d'adresses</a></li>
+    </ul>
+
+</div>
+<!-- tout le contenu dynamique sera chargé entre ses balises -->
+<div id="body">
+
+</div>
+ 
+<!-- Script de la page index -->    
+    <script type="text/javascript">
+        $(document).ready(function () {
+        $("#MessagesRecus").click(function () {
+            var link = document.getElementById("css");
+            link.href = "../CSS/EmailListe.css";
+            $("#body").load("EmailListe.html");
+            });
+        });
+        $(document).ready(function () {
+            $("#NouveauMessage").click(function () {
+                var link = document.getElementById("css");
+                link.href = "../CSS/ComposeEmail.css";
+                $("#body").load("ComposeEmail.html");
+            });
+        });
+        $(document).ready(function () {
+            $("#Adresses").click(function () {
+                var link = document.getElementById("css");
+                link.href = "../CSS/CarnetAdresse.css";
+                $("#body").load("CarnetAdresse.html");
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+#Email2{
+    padding-left: 50%;
+    margin-top: -40%;
+}
+form{
+    font-size: 25px;
+    margin-top: 2%;
+}
+input{
+    width: 30%;
+    border: none;
+    border-bottom: 0.3px solid;
+
+}
+textarea{
+    height: 300px;
+    width: 80%;
+    margin-top: 1%;
+}

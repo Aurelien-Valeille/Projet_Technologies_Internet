@@ -1,0 +1,15 @@
+{
+  "name": "projet_technologies_internet-master",
+  "version": "1.0.0",
+  "description": "Membres de l'équipe : - Nicolas Baillod - Kévin Kairouz - Jordan Margizian - Aurélien Valeille",
+  "main": "jquery-3.3.1.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "jade": "^1.11.0"
+  }
+}

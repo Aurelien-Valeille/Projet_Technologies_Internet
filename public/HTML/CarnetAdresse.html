@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+
+<div id="CarnetAdresse">
+    <p>Rechercher un contact</p>
+	<form Name="FormRecherche" method=post ation="/">
+		 <input name="recherche" placeholder="Votre recherche" type="text"></input>
+         <input type="button" value="Chercher" onClick="chercher();"/>
+	</form>
+	<p>Ajout d'un contact</p>
+	<form Name="FormAjout" method=post ation="/">
+		 <input name="prenom" placeholder="Prénom" ></input>
+		 <input name="nom" placeholder="Nom" ></input>
+		 <input name="email" placeholder="Email"></input>
+		 <input type="button" value="Valider" onClick="return valider(this);"/> 
+	</form>
+    <p>Suppression d'un contact</p>
+    <form Name="FormSupp" method=post ation="/">
+		 <input name="id" placeholder="Id à supprimer" ></input>
+		 <input type="button" value="Supprimer" onClick="return supprimer(this);"/> 
+	</form>
+<table id="tableau" border=1>
+    <p>Mon carnet d'adresse :</p>
+    <tr>
+        <th>id</th>
+        <th>Prenom</th>
+        <th>Nom</th>
+        <th>Mail</th>
+    </tr>
+</table>
+</div>
+<!-- Script de la page CarnetAdresse -->
+    <script type="text/javascript">
+        //VALIDER
+        function valider()
+        {
+            var pre = document.FormAjout.prenom.value;
+			var nom = document.FormAjout.nom.value;
+			var mail = document.FormAjout.email.value;            
+            
+            if(pre!="" & nom!="" & mail!="") {
+                var tableau = document.getElementById("tableau");
+                var ligne = tableau.insertRow(-1);//on a ajouté une ligne
+                var arrayLignes = document.getElementById("tableau").rows;
+                var colonne1 = ligne.insertCell(0);//on a une ajouté une cellule
+                var id = document.getElementsByTagName('table')[0].getElementsByTagName('tr')[arrayLignes.length-2].cells[0].innerHTML;
+                if(id=="id"){id=0;}
+                colonne1.innerHTML = +id+1;
+                var colonne2 = ligne.insertCell(1);
+                colonne2.innerHTML += pre;
+                var colonne3 = ligne.insertCell(2);
+                colonne3.innerHTML += nom;
+                var colonne4 = ligne.insertCell(3);
+                colonne4.innerHTML += mail; 
+                document.FormAjout.prenom.value="";
+                document.FormAjout.nom.value="";
+                document.FormAjout.email.value="";
+            }
+            else{
+             alert("Veuillez remplire les 3 champs");   
+            }
+        }
+        //SUPPRIMER
+        function supprimer()
+        {
+           var idV = document.FormSupp.id.value;  
+            if(idV!=""& idV>0){
+                 var tableau = document.getElementById("tableau");
+                 var arrayLignes = document.getElementById("tableau").rows;
+                 var val = 0;
+                 var supr = -1;
+                 var su =false;
+                 for (var i= 1; i < arrayLignes.length; i++){
+                     val = document.getElementsByTagName('table')[0].getElementsByTagName('tr')[i].cells[0].innerHTML; 
+                     if (idV == val){
+                        supr = i; 
+                        su = true;
+                     }
+                 }
+                if(su) {
+                 tableau.deleteRow(supr);
+                }
+                 document.FormSupp.id.value="";
+            }
+            else{
+            alert("Saisir un id valide !");
+            }
+        }
+        //CHERCHER
+        function chercher()
+        {
+            var chaine = document.FormRecherche.recherche.value;
+            var arrayLignes = document.getElementById("tableau").rows;
+            var val ="";
+            for (var k= 1; k < arrayLignes.length; k++){ //on recolorie les cellules pour la recherche actuelle
+                    for (var j= 0; j < 4; j++){ 
+                        document.getElementsByTagName('table')[0].getElementsByTagName('tr')[k].cells[j].style.backgroundColor = "#ffffff";      
+                    }
+                }
+            if(chaine!="")
+            {
+                for (var k= 1; k < arrayLignes.length; k++){
+                    for (var j= 0; j < 4; j++){ 
+                        val = document.getElementsByTagName('table')[0].getElementsByTagName('tr')[k].cells[j].innerHTML;
+                        if(val.includes(chaine)){
+                            document.getElementsByTagName('table')[0].getElementsByTagName('tr')[k].cells[j].style.backgroundColor = "#bdcbf5";
+                        } 
+                    }
+                }
+            document.FormRecherche.recherche.value="";
+            }         
+            
+        }
+        
+	</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!-- Ce fichier contient l'information pour un e-mail. Il y a également la liste de tous les e-mails car il faut la
+réafficher à chaque fois -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="../CSS/EmailListe.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/Email.css">
+    <meta charset="UTF-8">
+    <title>Email</title>
+</head>
+<body>
+<div id="Email">
+	<!-- On pourrait vider le contenu des span ici, puisque c'est chargé directement depuis le fichier maintenant ?	 -->
+    <p>De: <span id="envoyeur">devteam@gmail.com</span></p> 
+    <p>Objet: <span id="objet">what a great e-mail app !</span></p>
+    <p>Message: <span id="message">C'est vraiment une superbe application, j'espère que la partie serveur sera bientot disponible !</span></p>
+</div>
+<div id="Email2">
+    <p>De: devteam@gmail.com</p>
+    <p>Objet: what a great e-mail app ! 2.0</p>
+    <p>Message: C'est vraiment une superbe application, j'espère que la partie serveur sera bientot disponible !<br>
+    </p>
+</div>
+<div id="Email3">
+    <p>De: devteam@gmail.com</p>
+    <p>Objet: Voici le troisième mail</p>
+    <p>Message: C'est vraiment une superbe application, j'espère que la partie serveur sera bientot disponible !<br>
+    </p>
+</div>
+<div id="Email4">
+    <p>De: devteam@gmail.com</p>
+    <p>Objet: Encore un mail !</p>
+    <p>Message: C'est vraiment une superbe application, j'espère que la partie serveur sera bientot disponible !<br>
+    </p>
+</div>
+    <!-- Script de la page Email --> 
+    <script type="text/javascript">
+            $(document).ready(function (){
+                $(".detail").click(function(){
+                    $("#bodyMail").load("Email.html #Email");
+                });
+            });
+             $(document).ready(function (){
+                $(".detail2").click(function(){
+                    $("#bodyMail").load("Email.html #Email2");
+                });
+            });
+             $(document).ready(function (){
+                $(".detail3").click(function(){
+                    $("#bodyMail").load("Email.html #Email3");
+                });
+            });	
+            $(document).ready(function (){
+                $(".detail4").click(function(){
+                    $("#bodyMail").load("Email.html #Email4");
+                });
+            });
+    </script>
+</body>
+</html>
