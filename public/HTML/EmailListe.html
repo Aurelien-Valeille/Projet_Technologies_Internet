@@ -34,7 +34,7 @@
      <script type="text/javascript">
         $(document).ready(function (){
             $(".detail").click(function(){
-                $("#bodyMail").load("Email.html #Email");
+                $("#bodyMail").load("../HTML/Email.html #Email");
                 $(document).ready(function() { // Pour attendre que le contenu soit chargé
                 	$.getJSON('../JSON/emails.json', function(fichier) { // ça lit dans le fichier
     					$("#envoyeur").text(fichier.emails[0].envoyeur); // ça affiche l'envoyeur depuis le fichier JSON dans le HTML
@@ -46,17 +46,17 @@
         });
 		 $(document).ready(function (){
 			$(".detail2").click(function(){
-                $("#bodyMail").load("Email.html #Email2");
+                $("#bodyMail").load("../HTML/Email.html #Email2");
             });
         });
 		 $(document).ready(function (){
 			$(".detail3").click(function(){
-                $("#bodyMail").load("Email.html #Email3");
+                $("#bodyMail").load("../HTML/Email.html #Email3");
             });
         });	
 		$(document).ready(function (){
 			$(".detail4").click(function(){
-                $("#bodyMail").load("Email.html #Email4");
+                $("#bodyMail").load("../HTML/Email.html #Email4");
             });
         });
         
