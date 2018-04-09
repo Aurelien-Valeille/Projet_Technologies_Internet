@@ -14,5 +14,13 @@
     "jquery": "^3.3.1",
     "jsonfile": "^4.0.0",
     "node-rsa": "^0.4.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aurelien-Valeille/Projet_Technologies_Internet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Aurelien-Valeille/Projet_Technologies_Internet/issues"
+  },
+  "homepage": "https://github.com/Aurelien-Valeille/Projet_Technologies_Internet#readme"
 }
