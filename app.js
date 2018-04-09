@@ -65,7 +65,7 @@ app.get('/login', function (req, res, next) {
 });
 
 
-app.post('/login', function (req, res, next) {
+app.post('/postlogin', function (req, res, next) {
 
     fs.open('./DataBase/users/'+ req.body.username + '.json', 'r', (err, fd) => {
         if (err) {
@@ -80,7 +80,7 @@ app.post('/login', function (req, res, next) {
                console.error(err)
           currentUser=JSON.parse(data);
            if(currentUser.password === req.body.password) {
-               res.redirect('/')
+               res.sendFile(path.join(__dirname+'/public/HTML/Courriel.html'));
            }else{
                res.redirect('/login');
            }
