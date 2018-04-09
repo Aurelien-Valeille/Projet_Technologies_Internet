@@ -89,6 +89,15 @@ app.post('/postlogin', function (req, res, next) {
 
 });
 
+//logout
+app.post('/postlogout', function (req, res, next) {
+
+   res.sendFile(path.join(__dirname+'/public/HTML/Login.html'));
+   currentUser.username = null;
+   currentUser.password = null;
+   currentUser.Publickey = null;
+});
+
 app.get('/',function(req,res){
 
         res.sendFile(path.join(__dirname+'/public/HTML/Login.html'));
