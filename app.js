@@ -91,7 +91,7 @@ app.post('/login', function (req, res, next) {
 
 app.get('/',function(req,res){
 
-        res.sendFile(path.join(__dirname+'/public/HTML/Courriel.html'));
+        res.sendFile(path.join(__dirname+'/public/HTML/Login.html'));
     });
 
 app.get('/EmailListe',function(req,res){
