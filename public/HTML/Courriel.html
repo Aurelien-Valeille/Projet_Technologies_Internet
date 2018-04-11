@@ -16,15 +16,10 @@ de page HTML -->
     <ul>
         <li><a href='#' id="MessagesRecus">Messages reçus</a></li>
         <li><a href="#" id="NouveauMessage">Nouveau message</a></li>
-        <li><a href="#" id="Adresses">Carnet d'adresses</a></li>
+        <li><a href="/CarnetAdresse" id="Adresses">Carnet d'adresses</a></li>
     </ul>
-    <div class="container">
-        <form method="post" action="/postlogout">
-            <button type="submit" class="logout">Sign out</button>
-        </form>
-    </div>
-</div>
 
+</div>
 <!-- tout le contenu dynamique sera chargé entre ses balises -->
 <div id="body">
 
@@ -46,13 +41,7 @@ de page HTML -->
                 $("#body").load("../HTML/ComposeEmail.html");
             });
         });
-        $(document).ready(function () {
-            $("#Adresses").click(function () {
-                var link = document.getElementById("css");
-                link.href = "../CSS/CarnetAdresse.css";
-                $("#body").load("../HTML/CarnetAdresse.html");
-            });
-        });
+
     </script>
 </body>
 </html>
