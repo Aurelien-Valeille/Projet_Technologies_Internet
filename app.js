@@ -35,15 +35,19 @@ app.get('/signup', function (req, res) {
 //post and checking the informations send on the signup form
 app.post('/gettingdata', function (req, res) {
 
+	var key = new NodeRSA({b: 512});
     var username = req.body.username;
     var password = req.body.password;
-    var publickey = new NodeRSA({b: 512}).exportKey('public') //create new public key
+    var publickey = key.exportKey('public') // create new public key
+    var privatekey = key.exportKey('private') // create new private key
+    
 
     //object will be store in a Json file. There's ine file per user.
     var user = {
         username: username,
         password: password,
-        Publickey: publickey
+        Publickey: publickey,
+        prik: privatekey
     };
 
     //object will be stored in a Json file. Usefull to diplay all the adresses.
@@ -131,6 +135,7 @@ app.post('/postlogout', function (req, res, next) {
    currentUser.username = null;
    currentUser.password = null;
    currentUser.Publickey = null;
+   currentUser.prik = null;
 });
 
 
