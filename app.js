@@ -99,7 +99,7 @@ app.get('/login', function (req, res) {
 });
 
 //post the datas from the login form
-app.post('/login', function (req, res) {
+app.post('/postlogin', function (req, res) {
 
     //first of all, check if the user exists. If not, redirect to the signup page
     fs.open('./DataBase/users/' + req.body.username + '.json', 'r', (err) => {
@@ -116,7 +116,7 @@ app.post('/login', function (req, res) {
                 console.error(err)
             currentUser = JSON.parse(data);
             if(currentUser.password === req.body.password) {
-                res.redirect('/')
+                res.sendFile(path.join(__dirname+'/public/HTML/Courriel.html'));
             } else {
                 res.redirect('/login'); // wrong password, loop on the login page
             }
@@ -124,9 +124,19 @@ app.post('/login', function (req, res) {
     });
 });
 
+//logout
+app.post('/postlogout', function (req, res, next) {
+
+   res.sendFile(path.join(__dirname+'/public/HTML/Login.html'));
+   currentUser.username = null;
+   currentUser.password = null;
+   currentUser.Publickey = null;
+});
+
+
 app.get('/', function (req, res) {
 
-    res.sendFile(path.join(__dirname + '/public/HTML/Courriel.html'));
+    res.sendFile(path.join(__dirname+'/public/HTML/Login.html'));
 });
 
 app.get('/EmailListe', function (req, res) {
