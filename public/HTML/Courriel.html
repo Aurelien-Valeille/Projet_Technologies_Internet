@@ -14,7 +14,7 @@ de page HTML -->
 <!-- Menu principal du site web -->
 <div id="menu">
     <ul>
-        <li><a href='#' id="MessagesRecus">Messages reçus</a></li>
+        <li><a href='/EmailListe' id="MessagesRecus">Messages reçus</a></li>
         <li><a href="#" id="NouveauMessage">Nouveau message</a></li>
         <li><a href="/CarnetAdresse" id="Adresses">Carnet d'adresses</a></li>
     </ul>
@@ -31,13 +31,6 @@ de page HTML -->
  
 <!-- Script de la page index -->    
     <script type="text/javascript">
-        $(document).ready(function () {
-        $("#MessagesRecus").click(function () {
-            var link = document.getElementById("css");
-            link.href = "../CSS/EmailListe.css";
-            $("#body").load("../HTML/EmailListe.html");
-            });
-        });
         $(document).ready(function () {
             $("#NouveauMessage").click(function () {
                 var link = document.getElementById("css");

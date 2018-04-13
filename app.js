@@ -47,7 +47,7 @@ app.post('/gettingdata', function (req, res) {
         username: username,
         password: password,
         Publickey: publickey,
-        prik: privatekey
+        Privatekey: privatekey
     };
 
     //object will be stored in a Json file. Usefull to diplay all the adresses.
@@ -62,10 +62,10 @@ app.post('/gettingdata', function (req, res) {
         }
     });
 
-    function saveUser(user) {
+   function saveUser(user) {
         //check if the user already exists
-        if(fs.existsSync('./Database/emails/' + username + '.json')) {
-            res.send('User not saved, already exists');
+        if(fs.existsSync('./Database/users/' + username + '.json')) {
+            res.send('User not saved, already exists');  
             return
         };
 
@@ -75,16 +75,18 @@ app.post('/gettingdata', function (req, res) {
         if(!fs.existsSync('./Database/users/carnetAdress.json')) {
             fs.writeFileSync('./Database/users/carnetAdress.json', '{"users": [' + JSON.stringify(carnet) + ']}');
         } else {
-            fs.readFile('./Database/users/carnetAdress.json', 'utf8', function readFileCallback(err, data) {
-                if(err) {
-                    console.log(err);
-                } else {
-                    var obj = JSON.parse(data); //now it an object
-                    obj.users.push(carnet); //add some data
-                    var json = JSON.stringify(obj); //convert it back to json
-                    fs.writeFileSync('./Database/users/carnetAdress.json', json, 'utf8'); // write it back
-                }
-            });
+            if (! fs.existsSync('./Database/users/' + username + '.json')) {
+                fs.readFile('./Database/users/carnetAdress.json', 'utf8', function readFileCallback(err, data) {
+                    if(err) {
+                        console.log(err);
+                    } else {
+                        var obj = JSON.parse(data); //now it an object
+                        obj.users.push(carnet); //add some data
+                        var json = JSON.stringify(obj); //convert it back to json
+                        fs.writeFileSync('./Database/users/carnetAdress.json', json, 'utf8'); // write it back
+                    }
+                });
+            }
         }
         //write in the individual file
         fs.writeFileSync('./DataBase/users/' + username + '.json', JSON.stringify(user));
@@ -135,7 +137,7 @@ app.post('/postlogout', function (req, res, next) {
    currentUser.username = null;
    currentUser.password = null;
    currentUser.Publickey = null;
-   currentUser.prik = null;
+   currentUser.Privatekey = null;
 });
 
 
@@ -144,11 +146,11 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname+'/public/HTML/Login.html'));
 });
 
-app.get('/EmailListe', function (req, res) {
+/*app.get('/EmailListe', function (req, res) {
 
     res.sendFile(path.join(__dirname + '/public/HTML/EmailListe.html'));
 
-});
+});*/
 
 app.get('/ComposeEmail', function (req, res) {
 
@@ -186,7 +188,7 @@ app.post('/send', function (req, res) {
     //encrypt message
     var encrypted = key.encrypt(message, 'base64', 'utf8');
 
-    //object wiil be stored in a Json file
+    //object will be stored in a Json file
     var email = {
         from: currentUser.Publickey,
         to: parsDest.Publickey,
@@ -221,6 +223,16 @@ app.get('/CarnetAdresse', function (req, res) {
     jsonfile.readFile('./Database/users/carnetAdress.json', function (err, obj) {
         info = obj;
         res.render('userlist', {user: info});
+    });
+});
+
+//get the page messages reçu
+app.get('/EmailListe', function (req, res) {
+
+    var info;
+    jsonfile.readFile('./Database/emails/'+ currentUser.username +'.json', function (err, obj) {
+        info = obj;
+        res.render('usermail', {user: info});
     });
 });
 
