@@ -65,9 +65,9 @@ app.post('/gettingdata', function (req, res) {
    function saveUser(user) {
         //check if the user already exists
         if(fs.existsSync('./Database/users/' + username + '.json')) {
-            res.send('User not saved, already exists');  
+            res.send('User not saved, already exists') ;  
             return
-        };
+        } 
 
         /*if the user does not exists, write in the carnetAdress and indivudual files. First of all, write in the
          carnet file. If the file already exists, happen the new datas. If it does not exists, create the file. We have
@@ -123,6 +123,7 @@ app.post('/postlogin', function (req, res) {
             currentUser = JSON.parse(data);
             if(currentUser.password === req.body.password) {
                 res.sendFile(path.join(__dirname+'/public/HTML/Courriel.html'));
+                decrypt(currentUser.username);
             } else {
                 res.redirect('/login'); // wrong password, loop on the login page
             }
@@ -182,7 +183,6 @@ app.post('/send', function (req, res) {
     var dest = fs.readFileSync('./DataBase/users/' + destinataire + '.json', 'utf8');
     var parsDest = JSON.parse(dest);
     var keyData = parsDest.Publickey;
-    console.log(keyData);
     key.importKey(keyData, 'public');
 
     //encrypt message
@@ -216,6 +216,105 @@ app.post('/send', function (req, res) {
 
 });
 
+//function pour decrypter le fichier contenant les mails
+function decrypt(username) {
+    var mail;
+    if(fs.existsSync('./Database/emails/' + username + '.json')) { //si l'utilisateur a des mails
+        fs.readFile('./DataBase/emails/' + username + '.json', 'utf8', function (err, data) {
+        if(err) {
+            console.error(err);
+        }
+            if(fs.existsSync('./Database/emails/' + username + 'D.json')) { //Si le fichier existe on le supprime 
+            fs.unlink('./Database/emails/' + username + 'D.json', (err) => {
+                  if (err) throw err;  
+                }); 
+            }
+     
+        mail = JSON.parse(data);//add some data
+               
+              
+        //create a new empty RSA key
+         var key = new NodeRSA();
+              
+        //get the user's private key
+        var user = fs.readFileSync('./DataBase/users/' + currentUser.username + '.json', 'utf8');
+        var parsUser = JSON.parse(user);
+        var keyData = parsUser.Privatekey;
+        key.importKey(keyData, 'private');
+        console.log("on rentre dans la boucle",mail.message.length );
+            var c=0;
+        //dechiffrement de chaque mail contenu dans le dossier de l'utilisateur   
+        for(i=0;i<mail.message.length;i++) {
+        
+            //decrypt message
+            var decrypted = key.decrypt(mail.message[i].message, 'utf8', 'base64');
+
+            //object will be stored in a Json file
+            var email = {
+                from: mail.message[i].from,
+                to: mail.message[i].to,
+                objet: mail.message[i].objet,
+                message: decrypted
+            };
+            
+                        
+              console.log(i,' et ', decrypted);          
+                        
+            /*Si le dossier n'existe pas, on le crée et on y ajoute le mail déchiffré, sinon on lit le dossier afin de le vider 
+            ou d'y ajouter un mail supplémentaire*/
+            if(fs.existsSync('./Database/emails/' + username + 'D.json')) {
+                
+                
+                 fs.readFile('./Database/emails/' + username + 'D.json', 'utf8', function readFileCallback(err, data) {
+                    if(err) {
+                        console.log(err);
+                    } else {
+                var obj = JSON.parse(data); //now it an object
+                        console.log(i,'et ',obj);
+                obj.message.push(email); //add some data
+                var json = JSON.stringify(obj); //convert it back to json
+                fs.writeFileSync('./Database/emails/' + username + 'D.json', json, 'utf8'); // write it back
+            }
+                    });  
+            } else {
+                  fs.writeFileSync('./Database/emails/' + username + 'D.json', '{"message": [' + JSON.stringify(email) + ']}');
+                
+                /*
+                console.log(i);
+                if (i>0) { //On ajoute un mail qui n'est pas le premier dans le dossier
+                    console.log("i= ",i);
+                    fs.readFile('./Database/emails/' + username + 'D.json', 'utf8', function readFileCallback(err, data) {
+                    if(err) {
+                        console.log(err);
+                    } else {
+                        console.log("Boucle add un mail ",i);
+                        var obj = JSON.parse(data); //now it an object 
+                       
+                        obj.message.push(email); //add some data
+                        var json = JSON.stringify(obj); //convert it back to json
+                        fs.writeFileSync('./Database/emails/' + username + 'D.json', json, 'utf8'); // write it back
+                        }
+                    });  
+                } else { //le dossier existe mais on le vide afin d'y écrire le premier message
+                    fs.readFile('./Database/emails/' + username + 'D.json', 'utf8', function readFileCallback(err, data) {
+                        if(err) {
+                            console.log(err);
+                        } else {
+                            console.log("Boucle vide + 1 mail ",i);
+                            var obj = JSON.parse(data); //now it an object
+                            
+                            obj.message=null;
+                            var json = JSON.stringify(email); //convert it back to json
+                            fs.writeFileSync('./Database/emails/' + currentUser.username + 'D.json', '{"message": [' + json + ']}', 'utf8'); // write it back
+                            }
+                        });
+                    }*/
+                }
+            }
+        });   
+    }
+}
+
 //get the page carnet adresses
 app.get('/CarnetAdresse', function (req, res) {
 
@@ -228,9 +327,9 @@ app.get('/CarnetAdresse', function (req, res) {
 
 //get the page messages reçu
 app.get('/EmailListe', function (req, res) {
-
+    //decrypt(currentUser.username);
     var info;
-    jsonfile.readFile('./Database/emails/'+ currentUser.username +'.json', function (err, obj) {
+    jsonfile.readFile('./Database/emails/'+ currentUser.username +'D.json', function (err, obj) {
         info = obj;
         res.render('usermail', {user: info});
     });
