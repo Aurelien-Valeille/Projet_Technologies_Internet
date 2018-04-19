@@ -221,118 +221,98 @@ function decrypt(username) {
     var mail;
     if(fs.existsSync('./Database/emails/' + username + '.json')) { //si l'utilisateur a des mails
         fs.readFile('./DataBase/emails/' + username + '.json', 'utf8', function (err, data) {
-        if(err) {
-            console.error(err);
-        }
-            if(fs.existsSync('./Database/emails/' + username + 'D.json')) { //Si le fichier existe on le supprime 
-            fs.unlink('./Database/emails/' + username + 'D.json', (err) => {
-                  if (err) throw err;  
-                }); 
-            }
+        	if(err) {
+            	console.error(err);
+        	}
+        
+        	if(fs.existsSync('./Database/emails/' + username + 'D.json')) { //Si le fichier existe on le supprime 
+            	fs.unlink('./Database/emails/' + username + 'D.json', (err) => {
+                	if (err) throw err;  
+            	}); 
+        	}
      
-        mail = JSON.parse(data);//add some data
+        	mail = JSON.parse(data); //add some data
                
               
-        //create a new empty RSA key
-         var key = new NodeRSA();
+        	//create a new empty RSA key
+        	var key = new NodeRSA();
               
-        //get the user's private key
-        var user = fs.readFileSync('./DataBase/users/' + currentUser.username + '.json', 'utf8');
-        var parsUser = JSON.parse(user);
-        var keyData = parsUser.Privatekey;
-        key.importKey(keyData, 'private');
-        console.log("on rentre dans la boucle",mail.message.length );
-            var c=0;
-        //dechiffrement de chaque mail contenu dans le dossier de l'utilisateur   
-        for(i=0;i<mail.message.length;i++) {
-        
-            //decrypt message
-            var decrypted = key.decrypt(mail.message[i].message, 'utf8', 'base64');
+        	//get the user's private key
+        	var user = fs.readFileSync('./DataBase/users/' + currentUser.username + '.json', 'utf8');
+        	var parsUser = JSON.parse(user);
+        	var keyData = parsUser.Privatekey;
+        	key.importKey(keyData, 'private');
+        	console.log("Nombre de messages: ", mail.message.length);
 
-            //object will be stored in a Json file
-            var email = {
-                from: mail.message[i].from,
-                to: mail.message[i].to,
-                objet: mail.message[i].objet,
-                message: decrypted
-            };
-            
-                        
-              console.log(i,' et ', decrypted);          
-                        
-            /*Si le dossier n'existe pas, on le crée et on y ajoute le mail déchiffré, sinon on lit le dossier afin de le vider 
-            ou d'y ajouter un mail supplémentaire*/
-            if(fs.existsSync('./Database/emails/' + username + 'D.json')) {
+        	var chaineDecrypt;
+        	
+        	//dechiffrement de chaque mail contenu dans le dossier de l'utilisateur 
+        	if (mail.message.length > 0) {  
+        		for(i = 0; i < mail.message.length; i++) {
+        
+            		//decrypt message
+            		var decrypted = key.decrypt(mail.message[i].message, 'utf8', 'base64');
+
+            		//object will be stored in a Json file
+            		var email = {
+               			from: mail.message[i].from,
+               	 		to: mail.message[i].to,
+                		objet: mail.message[i].objet,
+                		message: decrypted
+            		};      
                 
-                
-                 fs.readFile('./Database/emails/' + username + 'D.json', 'utf8', function readFileCallback(err, data) {
-                    if(err) {
-                        console.log(err);
-                    } else {
-                var obj = JSON.parse(data); //now it an object
-                        console.log(i,'et ',obj);
-                obj.message.push(email); //add some data
-                var json = JSON.stringify(obj); //convert it back to json
-                fs.writeFileSync('./Database/emails/' + username + 'D.json', json, 'utf8'); // write it back
-            }
-                    });  
-            } else {
-                  fs.writeFileSync('./Database/emails/' + username + 'D.json', '{"message": [' + JSON.stringify(email) + ']}');
-                
-                /*
-                console.log(i);
-                if (i>0) { //On ajoute un mail qui n'est pas le premier dans le dossier
-                    console.log("i= ",i);
-                    fs.readFile('./Database/emails/' + username + 'D.json', 'utf8', function readFileCallback(err, data) {
-                    if(err) {
-                        console.log(err);
-                    } else {
-                        console.log("Boucle add un mail ",i);
-                        var obj = JSON.parse(data); //now it an object 
-                       
-                        obj.message.push(email); //add some data
-                        var json = JSON.stringify(obj); //convert it back to json
-                        fs.writeFileSync('./Database/emails/' + username + 'D.json', json, 'utf8'); // write it back
-                        }
-                    });  
-                } else { //le dossier existe mais on le vide afin d'y écrire le premier message
-                    fs.readFile('./Database/emails/' + username + 'D.json', 'utf8', function readFileCallback(err, data) {
-                        if(err) {
-                            console.log(err);
-                        } else {
-                            console.log("Boucle vide + 1 mail ",i);
-                            var obj = JSON.parse(data); //now it an object
-                            
-                            obj.message=null;
-                            var json = JSON.stringify(email); //convert it back to json
-                            fs.writeFileSync('./Database/emails/' + currentUser.username + 'D.json', '{"message": [' + json + ']}', 'utf8'); // write it back
-                            }
-                        });
-                    }*/
-                }
-            }
-        });   
+                	if (i == 0 && mail.message.length != 1) {
+                		chaineDecrypt = '{"message": [' + JSON.stringify(email);
+                	}
+                	else if (i == 0) {
+                		chaineDecrypt = '{"message": [' + JSON.stringify(email) + ']}'; 
+               		}
+                	else {
+                		chaineDecrypt += ", ";
+                		chaineDecrypt += JSON.stringify(email);
+               		}
+        		}
+        	}
+        	else {
+        		chaineDecrypt = '{"message": []}';
+        	}
+        	
+        	if (mail.message.length > 1) {
+        		chaineDecrypt += "]}";
+        	}
+            fs.writeFileSync('./Database/emails/' + username + 'D.json', chaineDecrypt, 'utf8');
+    	});   
     }
 }
 
 //get the page carnet adresses
 app.get('/CarnetAdresse', function (req, res) {
-
-    var info;
-    jsonfile.readFile('./Database/users/carnetAdress.json', function (err, obj) {
-        info = obj;
-        res.render('userlist', {user: info});
-    });
+	if (fs.existsSync('./Database/users/carnetAdress.json')) {
+	
+    	var info;
+    	jsonfile.readFile('./Database/users/carnetAdress.json', function (err, obj) {
+    	    info = obj;
+      		res.render('userlist', {user: info});
+    	});
+    }
+    else {
+    	res.render('userlist_empty');
+    }
 });
 
 //get the page messages reçu
 app.get('/EmailListe', function (req, res) {
-    //decrypt(currentUser.username);
-    var info;
-    jsonfile.readFile('./Database/emails/'+ currentUser.username +'D.json', function (err, obj) {
-        info = obj;
-        res.render('usermail', {user: info});
-    });
+	if (fs.existsSync('./Database/emails/' + currentUser.username + 'D.json')) {
+    	//decrypt(currentUser.username);
+    	var info;
+    	jsonfile.readFile('./Database/emails/' + currentUser.username + 'D.json', function (err, obj) {
+       	 	info = obj;
+       	 	res.render('usermail', {user: info});
+   		});
+    }
+    else {
+    	res.render('usermail_empty');
+    }
 });
 
 app.listen(3000);
